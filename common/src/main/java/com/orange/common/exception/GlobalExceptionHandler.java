@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    //自定义异常 方法抛出BizException异常会被此方法捕获处理
+    @ExceptionHandler({BizException.class})
     public Result<?> bizExceptionHandler(HttpServletRequest request,BizException e){
         Result<?> result = Result.error(e.getCode() == null ? ResultEnum.UNKNOWN_ERROR.getCode():e.getCode(),e.getMessage());
         return this.printLogAndReturn(request,result,e);
