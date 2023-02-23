@@ -12,5 +12,8 @@
         <module name="mybatis" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="webSocket" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
