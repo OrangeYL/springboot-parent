@@ -30,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = BizException.class)
     public Result<?> saveBatch(List<User> users){
         if(users.size() > 0){
             users.forEach(item ->{

@@ -26,9 +26,17 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    public GlobalExceptionHandler() {
+    }
+
     //自定义异常 方法抛出BizException异常会被此方法捕获处理
-    @ExceptionHandler({BizException.class})
+    @ExceptionHandler(BizException.class)
     public Result<?> bizExceptionHandler(HttpServletRequest request,BizException e){
+        Result<?> result = Result.error(e.getCode() == null ? ResultEnum.UNKNOWN_ERROR.getCode():e.getCode(),e.getMessage());
+        return this.printLogAndReturn(request,result,e);
+    }
+    @ExceptionHandler(ArithmeticException.class)
+    public Result<?> mathException(HttpServletRequest request,BizException e){
         Result<?> result = Result.error(e.getCode() == null ? ResultEnum.UNKNOWN_ERROR.getCode():e.getCode(),e.getMessage());
         return this.printLogAndReturn(request,result,e);
     }
@@ -39,7 +47,7 @@ public class GlobalExceptionHandler {
         String requestUrl = request.getRequestURL().toString() + (!StringUtils.hasLength(request.getQueryString()) ? "" : "?" + request.getQueryString());
 
         try {
-            log.error("<-异常返回-> 请求接口:{} | 异常时间:{} | 异常结果:{}",new Object[]{requestUrl, System.currentTimeMillis(), mapper.writeValueAsString(result)});
+            log.info("<-异常返回-> 请求接口:{} | 异常时间:{} | 异常结果:{}",new Object[]{requestUrl, System.currentTimeMillis(), mapper.writeValueAsString(result)});
         } catch (JsonProcessingException jsonProcessingException) {
             jsonProcessingException.printStackTrace();
         }

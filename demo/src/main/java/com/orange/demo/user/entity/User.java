@@ -1,7 +1,9 @@
 package com.orange.demo.user.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +27,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //主键
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     //名字
