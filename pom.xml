@@ -12,6 +12,7 @@
         <module>demo</module>
         <module>common</module>
         <module>mybatis</module>
+        <module>webSocket</module>
     </modules>
 
     <properties>

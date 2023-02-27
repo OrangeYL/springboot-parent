@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orange.webSocket.mapper.LoginMapper">
+    <resultMap type="com.orange.webSocket.entity.Staff" id="staffMap">
+        <id column="staff_id" property="staffId" ></id>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+    </resultMap>
+    <select id="getPasswordByName" parameterType="String"  resultMap="staffMap">
+        select * from staff where username=#{name}
+    </select>
+    <select id="getNameById" parameterType="integer"  resultMap="staffMap">
+        select * from staff where staff_id=#{id}
+    </select>
+
+</mapper>
